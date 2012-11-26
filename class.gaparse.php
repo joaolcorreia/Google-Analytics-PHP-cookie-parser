@@ -69,9 +69,15 @@ class GA_Parse
   // Parse the __utma Cookie
   list($domain_hash,$random_id,$time_initial_visit,$time_beginning_previous_visit,$time_beginning_current_visit,$session_counter) = preg_split('[\.]', $_COOKIE["__utma"]);
 
-  $this->first_visit = date("d M Y - H:i",$time_initial_visit);
-  $this->previous_visit = date("d M Y - H:i",$time_beginning_previous_visit);
-  $this->current_visit_started = date("d M Y - H:i",$time_beginning_current_visit);
+  $this->first_visit = new \DateTime();
+  $this->first_visit->setTimestamp($time_initial_visit);
+
+  $this->previous_visit = new \DateTime();
+  $this->previous_visit->setTimestamp($time_beginning_previous_visit);
+
+  $this->current_visit_started = new \DateTime();
+  $this->current_visit_started->setTimestamp($time_beginning_current_visit);
+
   $this->times_visited = $session_counter;
 
   // Parse the __utmb Cookie
